@@ -1,0 +1,77 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Search Inputs</h1>
+    <form>
+        <p>
+            latitude: <input type="text" asp-for="SearchLatitude" />
+            longitude: <input type="text" asp-for="SearchLongitude" />
+            amount of results: <input type="text" asp-for="SearchAmount" />
+            preferred food: <input type="text" asp-for="SearchFood" />
+            <input type="submit" value="Search" />
+        </p>
+    </form>
+      <div id="Grid">
+        <table cellpadding="5" cellspacing="0" style="border: 1pxsolid #ccc;font-size: 9pt;font-family:Arial">
+            <tr>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">locationid</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Applicant</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">FacilityType</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">cnn</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">LocationDescription</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Address</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">blocklot</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">block</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">lot</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">permit</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Status</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">FoodItems</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">X</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Y</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Latitude</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Longitude</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Schedule</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">dayshours</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">NOISent</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Approved</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Received</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">PriorPermit</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">ExpirationDate</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Location</th>
+            </tr>
+            @foreach (var customer in Model.FoodTrucks)
+            {
+                <tr>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.locationid</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.Applicant</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.FacilityType</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.cnn</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.LocationDescription</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.Address</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.blocklot</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.block</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.lot</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.permit</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.Status</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.FoodItems</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.X</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.Y</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.Latitude</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.Longitude</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.Schedule</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.dayshours</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.NOISent</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.Approved</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.Received</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.PriorPermit</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.ExpirationDate</td>
+                    <td style="width:120px;border: 1px solid #ccc">@customer.Location</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
