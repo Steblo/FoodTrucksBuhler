@@ -23,10 +23,7 @@ namespace FoodTrucks.Pages
 
             FoodTrucks = csv.GetRecords<FoodTruck>().Where(x => x.FoodItems.Contains(SearchFood ?? string.Empty)).OrderBy(x => x.CalculateDistance(new Location() { Latitude = SearchLatitude, Longitude = SearchLongitude }, new Location() { Latitude = x.Latitude, Longitude = x.Longitude })).ToList();
 
-            if (SearchAmount != null)
-            {
-                FoodTrucks = FoodTrucks.Take(SearchAmount).ToList();
-            }
+            FoodTrucks = FoodTrucks.Take(SearchAmount).ToList();
         }
 
         [DataType(DataType.Currency)]

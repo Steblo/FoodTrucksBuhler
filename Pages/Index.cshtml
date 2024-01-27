@@ -43,33 +43,33 @@
                 <th style="background-color: #B8DBFD;border: 1px solid #ccc">ExpirationDate</th>
                 <th style="background-color: #B8DBFD;border: 1px solid #ccc">Location</th>
             </tr>
-            @foreach (var customer in Model.FoodTrucks)
+            @foreach (var foodTruck in Model.FoodTrucks)
             {
                 <tr>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.locationid</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.Applicant</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.FacilityType</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.cnn</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.LocationDescription</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.Address</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.blocklot</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.block</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.lot</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.permit</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.Status</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.FoodItems</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.X</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.Y</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.Latitude</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.Longitude</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.Schedule</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.dayshours</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.NOISent</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.Approved</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.Received</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.PriorPermit</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.ExpirationDate</td>
-                    <td style="width:120px;border: 1px solid #ccc">@customer.Location</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.locationid</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Applicant</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.FacilityType</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.cnn</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.LocationDescription</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Address</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.blocklot</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.block</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.lot</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.permit</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Status</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.FoodItems</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.X</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Y</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Latitude</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Longitude</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Schedule</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.dayshours</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.NOISent</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Approved</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Received</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.PriorPermit</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.ExpirationDate</td>
+                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Location</td>
                 </tr>
             }
         </table>
