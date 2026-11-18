@@ -1,55 +1,71 @@
+using CsvHelper;
+using CsvHelper.Configuration;
+using FoodTrucks.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using FoodTrucks.Models;
-using CsvHelper;
-using System.Globalization;
-using CsvHelper.Configuration;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 
 namespace FoodTrucks.Pages
 {
     public class IndexModel : PageModel
     {
-        public void OnGet()
+        private const int MaximumResults = 50;
+        private readonly IWebHostEnvironment _environment;
+
+        public IndexModel(IWebHostEnvironment environment)
         {
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                PrepareHeaderForMatch = args => args.Header.ToLower(),
-            };
-            string startupPath = Environment.CurrentDirectory;
-            using var reader = new StreamReader(startupPath + @"\Data\Mobile_Food_Facility_Permit.csv");
-            using var csv = new CsvReader(reader, config);
-
-            FoodTrucks = csv.GetRecords<FoodTruck>().Where(x => x.FoodItems.Contains(SearchFood ?? string.Empty)).OrderBy(x => x.CalculateDistance(new Location() { Latitude = SearchLatitude, Longitude = SearchLongitude }, new Location() { Latitude = x.Latitude, Longitude = x.Longitude })).ToList();
-
-            FoodTrucks = FoodTrucks.Take(SearchAmount).ToList();
+            _environment = environment;
         }
 
-        [DataType(DataType.Currency)]
-        [Column(TypeName = "double")]
-        [BindProperty(SupportsGet = true)]
-        public double SearchLatitude { get; set; }
+        public List<FoodTruck> FoodTrucks { get; private set; } = [];
 
-        [DataType(DataType.Currency)]
-        [Column(TypeName = "double")]
+        [Range(-90, 90)]
         [BindProperty(SupportsGet = true)]
-        public double SearchLongitude { get; set; }
+        public double SearchLatitude { get; set; } = 37.7749;
 
-        [DataType(DataType.Currency)]
-        [Column(TypeName = "int32")]
+        [Range(-180, 180)]
         [BindProperty(SupportsGet = true)]
-        public int SearchAmount { get; set; }
+        public double SearchLongitude { get; set; } = -122.4194;
 
+        [Range(1, MaximumResults, ErrorMessage = "Zadej počet výsledků od 1 do 50.")]
+        [BindProperty(SupportsGet = true)]
+        public int SearchAmount { get; set; } = 10;
+
+        [StringLength(100)]
         [BindProperty(SupportsGet = true)]
         public string? SearchFood { get; set; }
 
-        public required List<FoodTruck> FoodTrucks { get; set; }
-
-        public class Location
+        public void OnGet()
         {
-            public double Latitude { get; set; }
-            public double Longitude { get; set; }
+            if (!ModelState.IsValid)
+            {
+                return;
+            }
+
+            var csvPath = Path.Combine(_environment.ContentRootPath, "Data", "Mobile_Food_Facility_Permit.csv");
+            if (!System.IO.File.Exists(csvPath))
+            {
+                ModelState.AddModelError(string.Empty, "Datový soubor food trucků nebyl nalezen.");
+                return;
+            }
+
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                PrepareHeaderForMatch = args => args.Header.ToLowerInvariant(),
+            };
+
+            using var reader = new StreamReader(csvPath);
+            using var csv = new CsvReader(reader, config);
+
+            var foodFilter = SearchFood?.Trim();
+            FoodTrucks = csv.GetRecords<FoodTruck>()
+                .Where(truck => string.IsNullOrWhiteSpace(foodFilter)
+                    || (!string.IsNullOrWhiteSpace(truck.FoodItems)
+                        && truck.FoodItems.Contains(foodFilter, StringComparison.OrdinalIgnoreCase)))
+                .OrderBy(truck => truck.CalculateDistance(SearchLatitude, SearchLongitude))
+                .Take(SearchAmount)
+                .ToList();
         }
     }
 }

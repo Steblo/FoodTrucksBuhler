@@ -1,77 +1,70 @@
-﻿@page
+@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Food trucks nearby";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Search Inputs</h1>
-    <form>
-        <p>
-            latitude: <input type="text" asp-for="SearchLatitude" />
-            longitude: <input type="text" asp-for="SearchLongitude" />
-            amount of results: <input type="text" asp-for="SearchAmount" />
-            preferred food: <input type="text" asp-for="SearchFood" />
-            <input type="submit" value="Search" />
-        </p>
+<div class="container py-4">
+    <h1 class="mb-3">Najdi food truck poblíž</h1>
+    <p class="text-muted">Zadej polohu a volitelně typ jídla. Výsledky jsou seřazené podle vzdálenosti.</p>
+
+    <form method="get" class="row g-3 align-items-end mb-4">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-sm-6 col-lg-3">
+            <label asp-for="SearchLatitude" class="form-label">Zeměpisná šířka</label>
+            <input asp-for="SearchLatitude" type="number" step="any" class="form-control" />
+            <span asp-validation-for="SearchLatitude" class="text-danger"></span>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <label asp-for="SearchLongitude" class="form-label">Zeměpisná délka</label>
+            <input asp-for="SearchLongitude" type="number" step="any" class="form-control" />
+            <span asp-validation-for="SearchLongitude" class="text-danger"></span>
+        </div>
+        <div class="col-sm-6 col-lg-2">
+            <label asp-for="SearchAmount" class="form-label">Počet výsledků (1–50)</label>
+            <input asp-for="SearchAmount" type="number" min="1" max="50" class="form-control" />
+            <span asp-validation-for="SearchAmount" class="text-danger"></span>
+        </div>
+        <div class="col-sm-6 col-lg-2">
+            <label asp-for="SearchFood" class="form-label">Oblíbené jídlo</label>
+            <input asp-for="SearchFood" class="form-control" placeholder="např. tacos" />
+            <span asp-validation-for="SearchFood" class="text-danger"></span>
+        </div>
+        <div class="col-lg-2">
+            <button type="submit" class="btn btn-primary w-100">Hledat</button>
+        </div>
     </form>
-      <div id="Grid">
-        <table cellpadding="5" cellspacing="0" style="border: 1pxsolid #ccc;font-size: 9pt;font-family:Arial">
-            <tr>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">locationid</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Applicant</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">FacilityType</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">cnn</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">LocationDescription</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Address</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">blocklot</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">block</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">lot</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">permit</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Status</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">FoodItems</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">X</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Y</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Latitude</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Longitude</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Schedule</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">dayshours</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">NOISent</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Approved</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Received</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">PriorPermit</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">ExpirationDate</th>
-                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Location</th>
-            </tr>
-            @foreach (var foodTruck in Model.FoodTrucks)
-            {
-                <tr>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.locationid</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Applicant</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.FacilityType</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.cnn</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.LocationDescription</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Address</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.blocklot</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.block</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.lot</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.permit</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Status</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.FoodItems</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.X</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Y</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Latitude</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Longitude</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Schedule</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.dayshours</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.NOISent</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Approved</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Received</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.PriorPermit</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.ExpirationDate</td>
-                    <td style="width:120px;border: 1px solid #ccc">@foodTruck.Location</td>
-                </tr>
-            }
-        </table>
-    </div>
+
+    @if (Model.FoodTrucks.Count == 0 && ViewData.ModelState.IsValid)
+    {
+        <p>Nenašli se žádní food trucky odpovídající hledání.</p>
+    }
+    else if (Model.FoodTrucks.Count > 0)
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Název</th>
+                        <th scope="col">Jídlo</th>
+                        <th scope="col">Adresa</th>
+                        <th scope="col">Vzdálenost</th>
+                        <th scope="col">Stav</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var foodTruck in Model.FoodTrucks)
+                    {
+                        <tr>
+                            <td>@foodTruck.Applicant</td>
+                            <td>@foodTruck.FoodItems</td>
+                            <td>@foodTruck.Address</td>
+                            <td>@((foodTruck.CalculateDistance(Model.SearchLatitude, Model.SearchLongitude) / 1000).ToString("0.0")) km</td>
+                            <td>@foodTruck.Status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
 </div>
